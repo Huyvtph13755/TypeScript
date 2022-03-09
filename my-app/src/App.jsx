@@ -13,7 +13,8 @@ function App() {
   ]
   return (
     <div className="App">
-      {products.map(item => <Item data={item}/>)}
+      Count: {count} <button onClick={() => setCount(count + 1)}>Click</button>
+      {products.map((item, index) => <Item key={index} data={item}/>)}
       <ShowInfo name="Huy" age={29} />
     </div>
   )
