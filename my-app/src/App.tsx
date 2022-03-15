@@ -1,19 +1,53 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios';
 import logo from './logo.svg'
 import './App.css'
-import ShowInfo from './ShowInfo'
-
+import ShowInfo from './components/ShowInfo'
+import type { ProductType } from './types/product';
+import { list, remove } from './api/product';
 function App() {
-  type TProduct = {
-    id: number,
-    name: string
-  }
-  const [count, setCount] = useState<number>(0);
-  const [products, setProducts] = useState<TProduct[]>([{id: 1, name: "Product A"}])
+  const [products, setProducts] = useState<ProductType[]>([]);
+  // const [count, setCount] = useState<number>(0);
+  
+  useEffect(() => {
+     const getProducts = async () => {
+        const { data } = await list();
+        setProducts(data);
+        console.log(data);
+        
+     }
+     getProducts();
+  },[])
 
+  const removeItem = async (id: number) => {
+    // xoa tren API
+    const { data } = await remove(id);
+    // reRender
+    data && setProducts(products.filter(item => item.id !== data.id));
+    document.location.href = "/";
+  }
   return (
     <div className="App">
-      <ShowInfo name="Huy"/>
+      <table className='table container-xl table-striped'>
+        <thead>
+          <th>#</th>
+          <th>Name</th>
+          <th></th>
+        </thead>
+        <tbody>
+          {products.map((item, index) => {
+            return <tr>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <button className='btn btn-sm btn-danger' onClick={() => removeItem(item.id)}>Remove</button>
+                    </td>
+                  </tr>
+          })}
+          
+        </tbody>
+      </table>
+      
     </div>
   )
 }
