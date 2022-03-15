@@ -30,7 +30,7 @@ function App() {
       <table className='table container-xl table-striped'>
         <thead>
           <th>STT</th>
-          <th>Namea</th>
+          <th>Name</th>
           <th></th>
         </thead>
         <tbody>
