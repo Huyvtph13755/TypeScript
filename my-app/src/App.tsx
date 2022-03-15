@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios';
-import logo from './logo.svg'
+// import logo from './logo.svg'
 import './App.css'
 import ShowInfo from './components/ShowInfo'
 import type { ProductType } from './types/product';
@@ -30,7 +29,7 @@ function App() {
     <div className="App">
       <table className='table container-xl table-striped'>
         <thead>
-          <th>#</th>
+          <th>STT</th>
           <th>Name</th>
           <th></th>
         </thead>
