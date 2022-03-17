@@ -8,7 +8,7 @@ type ShowInfoProps  = {
 const ShowInfo = (props: ShowInfoProps) => {
   return (
     <div>
-      { props.info.name}
+      { props.info.name}acb
     </div>
   )
 }
