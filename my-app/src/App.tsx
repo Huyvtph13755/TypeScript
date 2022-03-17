@@ -2,32 +2,22 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 import logo from './logo.svg'
 import './App.css'
+import ShowInfo from './components/ShowInfo'
 import type { ProductType } from './types/product';
-import { list, newList, remove } from './api/product';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import HeaderWebsite from './components/HeaderWebsite';
-import HomePage from './pages/HomePage';
-import ProductPage from './pages/ProductPage';
-import HomeOverview from './pages/layouts/HomeOverview';
+import { list, remove } from './api/product';
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
   // const [count, setCount] = useState<number>(0);
-  const [newProduct, setNewProduct] = useState<ProductType[]>([])
+  
   useEffect(() => {
-    const getNewProducts = async () => {
-      const { data } = await newList();
-      setNewProduct(data);
-      console.log(data);
-    }
-    const getProducts = async () => {
-      const { data } = await list();
-      setProducts(data);
-      // console.log(data);
-
-    }
-    getProducts();
-    getNewProducts();
-  }, [])
+     const getProducts = async () => {
+        const { data } = await list();
+        setProducts(data);
+        console.log(data);
+        
+     }
+     getProducts();
+  },[])
 
   const removeItem = async (id: number) => {
     // xoa tren API
@@ -37,17 +27,28 @@ function App() {
     document.location.href = "/";
   }
   return (
-    <Routes>
-      <Route path="/" element={<HomeOverview />}>
-        <Route index element={<HomePage data={newProduct} />} />
-        <Route path='products' element={<ProductPage />} />
-      </Route>
-      {/* <Route path='/admin' element={<AdminLayout/>}>
-              <Route index element={<Navigate to="dashboard"/>}/>
-              <Route path='dashboard' element={<DashBoard/>}/>
-              <Route path='product' element={<ManagerProduct/>}/>
-          </Route> */}
-    </Routes>
+    <div className="App">
+      <table className='table container-xl table-striped'>
+        <thead>
+          <th>STT</th>
+          <th>Name</th>
+          <th></th>
+        </thead>
+        <tbody>
+          {products.map((item, index) => {
+            return <tr>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <button className='btn btn-sm btn-danger' onClick={() => removeItem(item.id)}>Remove</button>
+                    </td>
+                  </tr>
+          })}
+          
+        </tbody>
+      </table>
+      
+    </div>
   )
 }
 
