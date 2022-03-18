@@ -66,7 +66,7 @@ function App() {
           <Route path='/admin' element={<AdminLayout/>}>
               <Route index element={<Navigate to="dashboard"/>}/>
               <Route path='dashboard' element={<DashBoard/>}/>
-              <Route path='product' element={<ManagerProduct/>}/>
+              <Route path="product" element={<ManagerProduct data={products}/>} />
           </Route>
       </Routes>
     </div>
