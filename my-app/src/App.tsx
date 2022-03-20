@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import ShowInfo from './components/ShowInfo'
 import type { ProductType } from './types/product';
-import { list, remove } from './api/product';
+import { add, list, remove } from './api/product';
 import { NavLink, Routes, Route, Navigate} from 'react-router-dom'
 import WebsiteLayout from './Pages/layouts/WebsiteLayout';
 import Home from './Pages/Home';
@@ -11,6 +11,7 @@ import Product from './Pages/Product';
 import DashBoard from './Pages/DashBoard';
 import ManagerProduct from './Pages/ManagerProduct';
 import AdminLayout from './Pages/layouts/AdminLayout';
+import AddProduct from './Pages/AddProduct';
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
   // const [count, setCount] = useState<number>(0);
@@ -32,32 +33,12 @@ function App() {
     data && setProducts(products.filter(item => item.id !== data.id));
     document.location.href = "/";
   }
+  const onHandleAdd = async (product: ProductType) => {
+    const {data} = await add(product);
+    setProducts([...products, data])
+  }
   return (
     <div className="App">
-      {/* <table className='table container-xl table-striped'>
-        <thead>
-          <th>STT</th>
-          <th>Name</th>
-          <th></th>
-        </thead>
-        <tbody>
-          {products.map((item, index) => {
-            return <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>
-                      <button className='btn btn-sm btn-danger' onClick={() => removeItem(item.id)}>Remove</button>
-                    </td>
-                  </tr>
-          })}
-          
-        </tbody>
-      </table> */}
-      {/* <ul>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/product">Product</NavLink></li>
-        <li><NavLink to="/admin">Admin DashBoard</NavLink></li>
-      </ul> */}
       <Routes>
           <Route path="/" element={<WebsiteLayout/>}>
               <Route index element={<Home/>}/>
@@ -67,6 +48,7 @@ function App() {
               <Route index element={<Navigate to="dashboard"/>}/>
               <Route path='dashboard' element={<DashBoard/>}/>
               <Route path="product" element={<ManagerProduct data={products}/>} />
+              <Route path="/admin/product/add" element={<AddProduct onAdd={onHandleAdd}/>} />
           </Route>
       </Routes>
     </div>
