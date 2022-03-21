@@ -9,6 +9,7 @@ import HeaderWebsite from './components/HeaderWebsite';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import HomeOverview from './pages/layouts/HomeOverview';
+import AdminOverview from './pages/layouts/AdminOverview';
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
   // const [count, setCount] = useState<number>(0);
@@ -42,11 +43,11 @@ function App() {
         <Route index element={<HomePage data={newProduct} />} />
         <Route path='products' element={<ProductPage />} />
       </Route>
-      {/* <Route path='/admin' element={<AdminLayout/>}>
-              <Route index element={<Navigate to="dashboard"/>}/>
+      <Route path='/admin' element={<AdminOverview/>}>
+              {/* <Route index element={<Navigate to="dashboard"/>}/>
               <Route path='dashboard' element={<DashBoard/>}/>
-              <Route path='product' element={<ManagerProduct/>}/>
-          </Route> */}
+              <Route path='product' element={<ManagerProduct/>}/> */}
+          </Route>
     </Routes>
   )
 }
