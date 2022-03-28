@@ -39,19 +39,31 @@
       "id": 11
     },
     {
-      "name": "Vũ Trọng Huy",
-      "price": "111111111111111111111",
+      "name": "Vũ Trọng Huy1",
+      "price": "1",
       "id": 12
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "123456",
+      "id": 1
     },
     {
-      "name": "Vũ Trọng Huyaaaa",
-      "price": "1111111111",
-      "id": 13
+      "email": "admin@gmail.com",
+      "password": "123456",
+      "id": 2
     },
     {
-      "name": "111111",
-      "price": "11111111111",
-      "id": 14
+      "email": "admin@gmail.com",
+      "password": "123456",
+      "id": 3
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "123456",
+      "id": 4
     }
   ]
 }
