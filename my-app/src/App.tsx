@@ -4,7 +4,6 @@ import './App.css'
 import ShowInfo from './components/ShowInfo'
 import type { ProductType } from './types/product';
 import { add, list, remove, update } from './api/product';
-import { registerUser, signinUser } from './api/user';
 import { NavLink, Routes, Route, Navigate} from 'react-router-dom';
 import WebsiteLayout from './Pages/layouts/WebsiteLayout';
 import Home from './Pages/Home';
@@ -15,8 +14,7 @@ import AdminLayout from './Pages/layouts/AdminLayout';
 import AddProduct from './Pages/AddProduct';
 import UpdateProduct from './Pages/UpdateProduct';
 import PrivateRouter from './components/PrivateRouter';
-import Register from './Pages/Register';
-import { UserType } from './types/user';
+import Signup from './Pages/Signup';
 import Signin from './Pages/Signin';
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -47,28 +45,14 @@ function App() {
     const {data} = await update(product);
     setProducts(products.map(item => item.id == data.id ? data : item))
   }
-  const registerHandle = async (user: UserType) => {
-    const {data} = await registerUser(user)
-  }
-  const siginHandle = async (user: UserType) => {
-    const {data} = await signinUser(user)
-    if(data){
-      console.log(data.user);
-
-      console.log("ok");
-      
-    // Lưu thông tin user vào localStorage
-      localStorage.setItem("user", JSON.stringify(data.user));
-    }
-  }
   return (
     <div className="App">
       <Routes>
           <Route path="/" element={<WebsiteLayout/>}>
               <Route index element={<Home/>}/>
               <Route path='product' element={<Product/>}/>
-              <Route path='register' element={<Register onRegister={registerHandle}/>}/>
-              <Route path='login' element={<Signin onSignin={siginHandle}/>}/>
+              <Route path="signup" element={<Signup />}/>
+              <Route path="signin" element={<Signin />}/>
           </Route>
           <Route path='/admin' element={<PrivateRouter><AdminLayout/></PrivateRouter>}>
               <Route index element={<Navigate to="dashboard"/>}/>
