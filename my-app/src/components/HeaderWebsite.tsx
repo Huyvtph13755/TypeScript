@@ -1,9 +1,15 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-
 type Props = {}
 
 const HeaderWebsite = (props: Props) => {
+  const a = JSON.parse(localStorage.getItem('user') as string);
+  console.log(a.user._id);
+  const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
+    console.log(event.target);
+    localStorage.removeItem('user');
+    window.location.reload();
+  };
   return (
     <header>
       <div className="relative bg-white">
@@ -29,7 +35,7 @@ const HeaderWebsite = (props: Props) => {
                 Liên hệ
               </NavLink>
             </nav>
-            <div className="bg-white flex flex-col justify-center">
+            {a == null ? (<div className="bg-white flex flex-col justify-center">
               <div className="flex items-center justify-center">
                 <div className=" relative inline-block text-left dropdown">
                   <span className="rounded-md shadow-sm"><button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800" type="button" aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
@@ -50,7 +56,30 @@ const HeaderWebsite = (props: Props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>) : (<div className="bg-white flex flex-col justify-center">
+              <div className="flex items-center justify-center">
+                <div className=" relative inline-block text-left dropdown">
+                  <span className="rounded-md shadow-sm"><button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800" type="button" aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
+                    <span>{a.user.name}</span>
+                    <svg className="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button></span>
+                  <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
+                    <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
+                      {a.user.role == 1 ? (<div className="py-1">
+                        <NavLink to="/admin" tabIndex={1} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">DashBoard</NavLink>
+                      </div>) : (<div></div>)}
+                      <div className="py-1">
+                        <button tabIndex={3} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem" id="logout"
+                          onClick={(e) => handleClick(e, "clicked")}>Đăng xuất</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>)}
+
           </div>
         </div>
       </div>
@@ -58,5 +87,4 @@ const HeaderWebsite = (props: Props) => {
 
   )
 }
-
 export default HeaderWebsite

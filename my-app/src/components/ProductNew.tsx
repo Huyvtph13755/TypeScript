@@ -15,7 +15,7 @@ const ProductNew = (props: Props) => {
                     return <div className="group relative">
                         <div
                             className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                                <img src={item.img}
+                                <img src={item.image}
                     alt="Front of men&#039;s Basic Tee in black."
                     className="w-full h-full object-center object-cover lg:w-full lg:h-full"/>
                         </div>
@@ -27,7 +27,6 @@ const ProductNew = (props: Props) => {
                                         {item.name}
                                     </a>
                                 </h3>
-                                <p className="mt-1 text-sm text-gray-500">{item.color}</p>
                             </div>
                             <p className="text-sm font-medium text-gray-900">{item.price}<u>đ</u></p>
                         </div>
