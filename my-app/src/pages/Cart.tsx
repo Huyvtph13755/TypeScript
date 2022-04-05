@@ -3,81 +3,78 @@ import React from 'react'
 type Props = {}
 
 const Cart = (props: Props) => {
-  const b = JSON.parse(localStorage.getItem('cart') as string);
-  let cart = [];
-  if(b){
-      cart = b;
-  }
+  const cart = JSON.parse(localStorage.getItem('cart'));
   let sum = 0;
   for (var i = 0; i <cart.length; i++) {
       sum+=cart[i].price*cart[i].quantity;
   }
+  console.log(cart);
+  
   return (
-    <body class="bg-gray-100">
-        <div class="container mx-auto mt-10">
-            <div class="flex shadow-md my-10">
-                <div class="w-3/4 bg-white px-10 py-10">
-                    <div class="flex justify-between border-b pb-8">
-                        <h1 class="font-semibold text-2xl">Giỏ hàng</h1>
+    <body className="bg-gray-100">
+        <div className="container mx-auto mt-10">
+            <div className="flex shadow-md my-10">
+                <div className="w-3/4 bg-white px-10 py-10">
+                    <div className="flex justify-between border-b pb-8">
+                        <h1 className="font-semibold text-2xl">Giỏ hàng</h1>
                     </div>
-                    <div class="flex mt-10 mb-5">
-                        <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Sản phẩm</h3>
-                        <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                    <div className="flex mt-10 mb-5">
+                        <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Sản phẩm</h3>
+                        <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
                             Số lượng</h3>
-                        <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                        <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
                             Giá</h3>
-                        <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                        <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
                             Tổng giá</h3>
                     </div>
-                    ${cart.map(item => `
-                        <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-                                <div class="flex w-2/5">
-                                    <!-- product -->
-                                    <div class="w-20">
-                                        <img class="h-24"
-                                            src="${item.img}"
-                                            alt="">
+                    {cart.map((item, index) => {
+                        return <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                                <div className="flex w-2/5">
+                                    <div className="w-20">
+                                        <img className="h-24"
+                                            src={item.image}
+                                            alt=""/>
                                     </div>
-                                    <div class="flex flex-col justify-between ml-4 flex-grow">
-                                        <span class="font-bold text-sm">${item.name}</span>
-                                        <span class="text-red-500 text-xs">${item.color} | XL</span>
-                                        <button data-id="${item.id}" class="btn btn-remove font-semibold hover:text-red-500 text-gray-500 text-xs text-left">Xóa</button>
+                                    <div className="flex flex-col justify-between ml-4 flex-grow">
+                                        <span className="font-bold text-sm">{item.name}</span>
+                                        {/* <span className="text-red-500 text-xs">{item.color} | XL</span> */}
+                                        <button data-id="${item.id}" className="btn btn-remove font-semibold hover:text-red-500 text-gray-500 text-xs text-left">Xóa</button>
                                     </div>
                                 </div>
-                                <div class="flex justify-center w-1/5">
-                                    <button data-id="${item.id}" class="btn btn-decrease">-</button>
-                                    <input class="mx-2 border text-center w-8" type="text" value="${item.quantity}" disabled>
-                                    <button data-id="${item.id}" class="btn btn-increase">+</button>
+                                <div className="flex justify-center w-1/5">
+                                    <button data-id="${item.id}" className="btn btn-decrease">-</button>
+                                    <input className="mx-2 border text-center w-8" type="text" value={item.quantity} disabled/>
+                                    <button data-id="${item.id}" className="btn btn-increase">+</button>
                                 </div>
-                                <span class="text-center w-1/5 font-semibold text-sm">${item.price}<u>đ</u></span>
-                                <span class="text-center w-1/5 font-semibold text-sm">${Number(item.price) * Number(item.quantity)}</span>
+                                <span className="text-center w-1/5 font-semibold text-sm">{item.price}<u>đ</u></span>
+                                <span className="text-center w-1/5 font-semibold text-sm">{Number(item.price) * Number(item.quantity)}</span>
                             </div>
-                    `).join('')}
-                    <a href="/products" class="flex font-semibold text-indigo-600 text-sm mt-10">
-                            <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
+                    })}
+                    <a href="/products" className="flex font-semibold text-indigo-600 text-sm mt-10">
+                            <svg className="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
                                 <path
                                     d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
                             </svg>
                             Continue Shopping
                         </a>
                     </div>
-                    <div id="summary" class="w-1/4 px-8 py-10">
-                        <h1 class="font-semibold text-2xl border-b pb-8">Tổng quan</h1>
-                        <div class="flex justify-between mt-10 mb-5">
-                            <span class="font-semibold text-sm uppercase">Sản phẩm (${cart.length})</span>
+                    <div id="summary" className="w-1/4 px-8 py-10">
+                        <h1 className="font-semibold text-2xl border-b pb-8">Tổng quan</h1>
+                        <div className="flex justify-between mt-10 mb-5">
+                            <span className="font-semibold text-sm uppercase">Sản phẩm ({cart.length})</span>
                             
                         </div>
                         <div>
                         </div>
-                        <div class="py-10">
+                        <div className="py-10">
                         </div>
-                        <div class="border-t mt-8">
-                            <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                        <div className="border-t mt-8">
+                            <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                                 <span>Tổng hóa đơn (đồng)</span>
-                                <span>${sum}</span>
+                                <span>{sum}</span>
                             </div>
                             <button
-                                class="text-white bg-gray-700 hover:bg-gray-600 font-semibold py-3 text-sm text-white uppercase w-full">Checkout</button>
+                                className="text-white bg-gray-700 hover:bg-gray-600 font-semibold py-3 text-sm text-white uppercase w-full">Checkout</button>
                         </div>
                     </div>
                 </div>

@@ -46,7 +46,7 @@ const ProductEdit = (props: ProductEditProps) => {
             data.image = img.data.url;
         }
         props.onUpdate(data);
-        navigate('/admin/dashboard');
+        navigate('/admin/product');
         window.location.reload();
     }
     const cate = props.data.category

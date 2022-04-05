@@ -40,8 +40,8 @@ const ProductAdd = (props: ProductAddProps) => {
         console.log(data);
         
         props.onAdd(data);
-        // navigate("/admin/dashboard")
-        // window.location.reload();
+        navigate("/admin/product")
+        window.location.reload();
     }
     const cate = props.data.category
     console.log(cate);

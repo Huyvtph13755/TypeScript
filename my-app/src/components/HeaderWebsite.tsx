@@ -46,6 +46,9 @@ const HeaderWebsite = (props: Props) => {
                   </button></span>
                   <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
                     <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
+                    <div className="py-1">
+                        <NavLink to="/cart" tabIndex={1} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">Giỏ hàng</NavLink>
+                      </div>
                       <div className="py-1">
                         <NavLink to="/signin" tabIndex={1} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">Đăng nhập</NavLink>
                       </div>
@@ -70,6 +73,9 @@ const HeaderWebsite = (props: Props) => {
                       {a.user.role == 1 ? (<div className="py-1">
                         <NavLink to="/admin" tabIndex={1} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">DashBoard</NavLink>
                       </div>) : (<div></div>)}
+                      <div className="py-1">
+                        <NavLink to="/cart" tabIndex={1} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">Giỏ hàng</NavLink>
+                      </div>
                       <div className="py-1">
                         <button value="1" tabIndex={3} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem" id="logout"
                           onClick={(e) => handleClick(e, "clicked")}>Đăng xuất</button>
