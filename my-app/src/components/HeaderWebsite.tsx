@@ -6,7 +6,7 @@ const HeaderWebsite = (props: Props) => {
   const a = JSON.parse(localStorage.getItem('user') as string);
   // console.log(a.user._id);
   const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
-    console.log(event.target);
+    console.log(event.target.value);
     localStorage.removeItem('user');
     window.location.reload();
   };
@@ -71,7 +71,7 @@ const HeaderWebsite = (props: Props) => {
                         <NavLink to="/admin" tabIndex={1} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">DashBoard</NavLink>
                       </div>) : (<div></div>)}
                       <div className="py-1">
-                        <button tabIndex={3} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem" id="logout"
+                        <button value="1" tabIndex={3} className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem" id="logout"
                           onClick={(e) => handleClick(e, "clicked")}>Đăng xuất</button>
                       </div>
                     </div>

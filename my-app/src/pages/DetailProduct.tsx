@@ -6,6 +6,7 @@ import { read } from '../api/product';
 import { ProductType } from '../types/product';
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import { addToCart } from '../utils/addToCart';
 type ProductDetailProps = {
     data: ProductType[];
     // onUpdate: (product: ProductType) => void
@@ -40,6 +41,15 @@ const DetailProduct = (props: ProductDetailProps) => {
     //     window.location.reload();
     // }
     console.log(products);
+    const [name, setName] = useState('')
+    const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
+            console.log(products);
+            console.log(name);
+            
+            addToCart({...products, quantity: name ? name : 1}, function(){
+                toastr.success(`Thêm sản phẩm ${products.name} vào giỏ hàng thành công!`);
+            })
+    };
     
     return (
         <section>
@@ -78,11 +88,11 @@ const DetailProduct = (props: ProductDetailProps) => {
                 <div>
                 <p className="text-base leading-4 mt-7 text-gray-600 dark:text-gray-300"><b>Số lượng:</b>
                 </p>
-                <input type="number" id="inputValue" placeholder="1" className="form-input mt-1 block w-2/6 pl-2 outline-none py-1 rounded-sm"/>
+                <input type="number" onChange={ (event) => setName(event.target.value) } placeholder="1" className="form-input mt-1 block w-2/6 pl-2 outline-none py-1 rounded-sm"/>
             </div>
                 
                 <br />
-                <button data-id="{products._id}" id="btnAddToCart" className="dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
+                <button onClick={(e) => handleClick(e, "clicked")} className="dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white bg-gray-800 w-full py-4 hover:bg-gray-700 focus:outline-none">
                     Thêm vào giỏ hàng
                 </button>
             </div>
