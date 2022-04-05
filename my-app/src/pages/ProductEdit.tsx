@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,6 +21,7 @@ const ProductEdit = (props: ProductEditProps) => {
     const { id } = useParams();
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormInputs>();
     const navigate = useNavigate();
+    const [image, setImage] = useState("") 
     const [products, setProducts] = useState<ProductType[]>([]);
     useEffect(() => {
         const getProduct = async () => {
@@ -30,13 +31,27 @@ const ProductEdit = (props: ProductEditProps) => {
         }
         getProduct();
     }, []);
-    const onSubmit: SubmitHandler<FormInputs> = data => {
+    const onSubmit: SubmitHandler<FormInputs> = async data => {
+        const CLOUDINARY_PRESET = "jkbdphzy";
+        const CLOUDINARY_API_URL = "https://api.cloudinary.com/v1_1/ecommercer2021/image/upload";
+        if(image){
+            const formData = new FormData();
+            formData.append('file', image);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+            const img = await axios.post(CLOUDINARY_API_URL, formData,{
+                headers: {
+                    "Content-Type": "application/form-data"
+                  },
+            });
+            data.image = img.data.url;
+        }
         props.onUpdate(data);
-        navigate('/admin/product');
+        navigate('/admin/dashboard');
+        window.location.reload();
     }
     const cate = props.data.category
     console.log(products.category);
-    
+
     return (
         <form action="" onSubmit={handleSubmit(onSubmit)}>
             <main>
@@ -56,9 +71,9 @@ const ProductEdit = (props: ProductEditProps) => {
                                                     <div className="col-span-6 sm:col-span-4">
                                                         <label className="block text-sm font-medium text-gray-700">Danh mục</label>
                                                         <select {...register('category')} id="cate" className="cate mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                            {cate && cate.map((item) => {    
-                                                                return <option value={item._id}>{item.name}</option>            
-                                                            })}     
+                                                            {cate && cate.map((item) => {
+                                                                return <option value={item._id}>{item.name}</option>
+                                                            })}
                                                         </select>
                                                     </div>
                                                     <div className="col-span-6 sm:col-span-4">
@@ -76,7 +91,7 @@ const ProductEdit = (props: ProductEditProps) => {
                                                                 <div className="flex text-sm text-gray-600">
                                                                     <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                                         <span>Upload a file</span>
-                                                                        <input id="img-product" name="img-product" type="file" className="sr-only" />
+                                                                        <input onChange={(e) => {setImage(e.target.files[0])}} type="file" className="sr-only" />
                                                                     </label>
                                                                     <p className="pl-1">or drag and drop</p>
                                                                 </div>
@@ -97,14 +112,14 @@ const ProductEdit = (props: ProductEditProps) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                                <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                    Lưu
-                                                </button>
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
+                            </div>
+                            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Lưu
+                                </button>
                             </div>
                         </div>
                     </div>

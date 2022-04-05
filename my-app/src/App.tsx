@@ -18,6 +18,8 @@ import { CategoryType } from './types/category';
 import { listCate } from './api/category';
 import ProductEdit from './pages/ProductEdit';
 import ProductAdd from './pages/ProductAdd';
+import Upload from './pages/Upload';
+import DetailProduct from './pages/DetailProduct';
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
   
@@ -49,18 +51,17 @@ function App() {
     const { data } = await add(product);
   }
   const onHandleUpdate = async (product:ProductType) => {
-    console.log(product);
-   const { data } = await update(product)
-   setProducts(products.map(item => item._id == data._id ? data : item));
+   await update(product)
 }
   return (
     <Routes>
       <Route path="/" element={<HomeOverview />}>
         <Route index element={<HomePage data={newProduct} />} />
         <Route path='products' element={<ProductPage data={products} />} />
-
+        <Route path='upload' element={<Upload/>}/>
         <Route path='signup' element={<Signup/>}/>
         <Route path='signin' element={<Signin/>}/>
+        <Route path='/product/:id'element={<DetailProduct data={products}/>}/>
       </Route>
       <Route path="admin" element={<PrivateRouter><AdminOverview /></PrivateRouter>}> 
               <Route index element={<Navigate to="dashboard"/>}/>

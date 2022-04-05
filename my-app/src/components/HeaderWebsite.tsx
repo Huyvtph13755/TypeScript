@@ -4,7 +4,7 @@ type Props = {}
 
 const HeaderWebsite = (props: Props) => {
   const a = JSON.parse(localStorage.getItem('user') as string);
-  console.log(a.user._id);
+  // console.log(a.user._id);
   const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
     console.log(event.target);
     localStorage.removeItem('user');

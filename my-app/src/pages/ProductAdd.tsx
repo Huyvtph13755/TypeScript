@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ProductType } from '../types/product';
@@ -15,12 +17,31 @@ type TypeInputs = {
 }
 
 const ProductAdd = (props: ProductAddProps) => {
+    const [image, setImage] = useState("") 
     const { register, handleSubmit, formState: { errors } } = useForm<TypeInputs>();
     const navigate = useNavigate();
-    const onSubmit: SubmitHandler<TypeInputs> = data => {
+    
+    const onSubmit: SubmitHandler<TypeInputs> = async data => {
+        const CLOUDINARY_PRESET = "jkbdphzy";
+        const CLOUDINARY_API_URL = "https://api.cloudinary.com/v1_1/ecommercer2021/image/upload";
+        if(image){
+            const formData = new FormData();
+            formData.append('file', image);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+            const img = await axios.post(CLOUDINARY_API_URL, formData,{
+                headers: {
+                    "Content-Type": "application/form-data"
+                  },
+            });
+            data.image = img.data.url;
+        }
+        
+
+        console.log(data);
+        
         props.onAdd(data);
-        navigate("/admin/dashboard")
-        window.location.reload();
+        // navigate("/admin/dashboard")
+        // window.location.reload();
     }
     const cate = props.data.category
     console.log(cate);
@@ -42,6 +63,7 @@ const ProductAdd = (props: ProductAddProps) => {
                                                 <div className="col-span-6 sm:col-span-4">
                                                     <label className="block text-sm font-medium text-gray-700">Danh mục</label>
                                                     <select {...register('category')} id="cate" className="cate mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                        <option selected>Chọn danh mục</option>
                                                         {cate && cate.map((item) => {
                                                             return <option value={item._id}>{item.name}</option>
                                                         })}
@@ -62,7 +84,7 @@ const ProductAdd = (props: ProductAddProps) => {
                                                             <div className="flex text-sm text-gray-600">
                                                                 <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                                     <span>Upload a file</span>
-                                                                    <input id="img-product" name="img-product" type="file" className="sr-only" />
+                                                                    <input onChange={(e) => {setImage(e.target.files[0])}} type="file" className="sr-only" />
                                                                 </label>
                                                                 <p className="pl-1">or drag and drop</p>
                                                             </div>

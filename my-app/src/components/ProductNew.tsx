@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { ProductType } from '../types/product';
 
 type Props = {
@@ -22,10 +23,10 @@ const ProductNew = (props: Props) => {
                         <div className="mt-4 flex justify-between">
                             <div>
                                 <h3 className="text-sm text-gray-700">
-                                    <a href="/products/{item.id}">
+                                    <Link to={`/product/${item._id}`}>
                                         <span aria-hidden="true" className="absolute inset-0"></span>
                                         {item.name}
-                                    </a>
+                                    </Link>
                                 </h3>
                             </div>
                             <p className="text-sm font-medium text-gray-900">{item.price}<u>đ</u></p>
