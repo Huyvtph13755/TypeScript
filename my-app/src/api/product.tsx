@@ -29,3 +29,7 @@ export const remove = (_id: string) => {
     const url = `/products/${_id}`;
     return instance.delete(url);
 }
+export const sortPr = (_id: string) => {
+    const url = `/${_id}`;
+    return instance.get(url);
+}

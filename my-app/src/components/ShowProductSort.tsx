@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { listCate } from '../api/category';
 import { ProductType } from '../types/product';
 
 type Props = {
     data: ProductType[]
 }
 
-const ShowAllProduct = (props: Props) => {
-    // console.log(props.data.product);
+const ShowProductSort = (props: Props) => {
+    const [cate, setCate] = useState<ProductType[]>([]);
+    useEffect(() => {
+        const getCate = async () => {
+            const {data} = await listCate()
+            setCate(data)
+        }
+        getCate()
+    },[])
+    console.log(cate);
     const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
         window.location.reload();
       };
-    const list = props.data
+    // console.log(props.data.product);
+    // const list = props.data
     return (
         <div className="bg-white">
             <div>
@@ -25,7 +35,7 @@ const ShowAllProduct = (props: Props) => {
                             <form className="hidden lg:block">
                                 <h3 className="text-lg font-medium text-gray-900 space-y-4 pb-2 border-b">Danh mục</h3>
                                 <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 pt-2">
-                                    {list.category && list.category.map((item, index) => {
+                                    {cate && cate.map((item, index) => {
                                         return <li>
                                             <Link to={`/products/${item._id}/sort`}> {item.name} </Link>
                                         </li>
@@ -49,13 +59,12 @@ const ShowAllProduct = (props: Props) => {
                                     </ul>
                                     <button onClick={(e) => handleClick(e, "clicked")} className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Lọc</button>
                                 </div>
-                                
                             </form>
                             <div className="lg:col-span-3">
                                 <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 lg:h-full">
                                     <div className="max-w-2xl mx-auto py-4 px-4 sm:py-4 sm:px-6 lg:max-w-7xl lg:px-8">
                                         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                                            {list.product && list.product.map((item, index) => {
+                                            {props.data && props.data.map((item, index) => {
                                                 return <div className="group relative" key={index}>
                                                     <div
                                                         className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
@@ -90,4 +99,4 @@ const ShowAllProduct = (props: Props) => {
     )
 }
 
-export default ShowAllProduct
+export default ShowProductSort

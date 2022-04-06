@@ -24,7 +24,9 @@ import Cart from './pages/Cart';
 import CateAdminPage from './pages/CateAdminPage';
 import CateAdd from './pages/CateAdd';
 import CateEdit from './pages/CateEdit';
+import ProductPageSort from './pages/ProductPageSort';
 function App() {
+ 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [cates, setCates] = useState<CategoryType[]>([])
   // const [count, setCount] = useState<number>(0);
@@ -77,6 +79,7 @@ function App() {
         <Route path='signup' element={<Signup />} />
         <Route path='signin' element={<Signin />} />
         <Route path='/product/:id' element={<DetailProduct data={products} />} />
+        <Route path='/products/:id/sort' element={<ProductPageSort/>} />
         <Route path='cart' element={<Cart />} />
       </Route>
       <Route path="admin" element={<PrivateRouter><AdminOverview /></PrivateRouter>}>
