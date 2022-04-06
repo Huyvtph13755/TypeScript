@@ -27,7 +27,7 @@ const ShowAllProduct = (props: Props) => {
                                 <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 pt-2">
                                     {list.category && list.category.map((item, index) => {
                                         return <li>
-                                            <Link to={`/products/${item._id}/sort`}> {item.name} </Link>
+                                            <Link className='focus:outline-none focus:border-b-4 focus:border-indigo-500' to={`/products/${item._id}/sort`}> {item.name} </Link>
                                         </li>
                                     })}
                                 </ul>
@@ -35,16 +35,16 @@ const ShowAllProduct = (props: Props) => {
                                     <h3 className="text-lg font-medium text-gray-900 space-y-4 pb-2 border-b">Sắp xếp</h3>
                                     <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-10 pt-2">
                                         <li>
-                                            <Link to="/products/productaz/sort">Sắp xếp A - Z</Link>
+                                            <Link className='focus:outline-none focus:border-b-4 focus:border-indigo-500' to="/products/productaz/sort">Sắp xếp A - Z</Link>
                                         </li>
                                         <li>
-                                            <Link to="/products/productza/sort">Sắp xếp Z - A</Link>
+                                            <Link className='focus:outline-none focus:border-b-4 focus:border-indigo-500' to="/products/productza/sort">Sắp xếp Z - A</Link>
                                         </li>
                                         <li>
-                                            <Link to="/products/productminm/sort">Sắp xếp theo giá từ thấp - cao</Link>
+                                            <Link className='focus:outline-none focus:border-b-4 focus:border-indigo-500' to="/products/productminm/sort">Sắp xếp theo giá từ thấp - cao</Link>
                                         </li>
                                         <li>
-                                            <Link to="/products/productmaxm/sort">Sắp xếp theo giá từ cao - thấp</Link>
+                                            <Link className='focus:outline-none focus:border-b-4 focus:border-indigo-500' to="/products/productmaxm/sort">Sắp xếp theo giá từ cao - thấp</Link>
                                         </li>
                                     </ul>
                                     <button onClick={(e) => handleClick(e, "clicked")} className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Lọc</button>

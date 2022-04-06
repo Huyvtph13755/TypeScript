@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {}
 
@@ -9,7 +9,11 @@ const Cart = (props: Props) => {
       sum+=cart[i].price*cart[i].quantity;
   }
   console.log(cart);
-  
+  const [name, setName] = useState('')
+    const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
+           console.log();
+           
+    };
   return (
     <body className="bg-gray-100">
         <div className="container mx-auto mt-10">
@@ -38,13 +42,13 @@ const Cart = (props: Props) => {
                                     <div className="flex flex-col justify-between ml-4 flex-grow">
                                         <span className="font-bold text-sm">{item.name}</span>
                                         {/* <span className="text-red-500 text-xs">{item.color} | XL</span> */}
-                                        <button data-id="${item.id}" className="btn btn-remove font-semibold hover:text-red-500 text-gray-500 text-xs text-left">Xóa</button>
+                                        <button onClick={(e) => handleClick(e, "clicked")} onChange={ (event) => setName(event.target.value) } className="btn btn-remove font-semibold hover:text-red-500 text-gray-500 text-xs text-left">Xóa</button>
                                     </div>
                                 </div>
                                 <div className="flex justify-center w-1/5">
-                                    <button data-id="${item.id}" className="btn btn-decrease">-</button>
+                                    <button className="btn btn-decrease">-</button>
                                     <input className="mx-2 border text-center w-8" type="text" value={item.quantity} disabled/>
-                                    <button data-id="${item.id}" className="btn btn-increase">+</button>
+                                    <button className="btn btn-increase">+</button>
                                 </div>
                                 <span className="text-center w-1/5 font-semibold text-sm">{item.price}<u>đ</u></span>
                                 <span className="text-center w-1/5 font-semibold text-sm">{Number(item.price) * Number(item.quantity)}</span>
