@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { listCate } from '../api/category';
+import { CategoryType } from '../types/category';
 import { ProductType } from '../types/product';
 
 type Props = {
@@ -8,13 +9,15 @@ type Props = {
 }
 
 const ShowProductSort = (props: Props) => {
-    const [cate, setCate] = useState<ProductType[]>([]);
+    const [cate, setCate] = useState<CategoryType[]>([]);
+    const [product, setProduct] = useState<ProductType[]>([]);
     useEffect(() => {
         const getCate = async () => {
             const {data} = await listCate()
             setCate(data)
         }
         getCate()
+        setProduct(props.data)
     },[])
     console.log(cate);
     const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
@@ -37,7 +40,7 @@ const ShowProductSort = (props: Props) => {
                                 <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 pt-2">
                                     {cate && cate.map((item, index) => {
                                         return <li>
-                                            <Link className='focus:outline-none focus:border-b-4 focus:border-indigo-500' to={`/products/${item._id}/sort`}> {item.name} </Link>
+                                            <a className='focus:outline-none focus:border-b-4 focus:border-indigo-500' href={`/products/${item._id}/sort`}> {item.name} </a>
                                         </li>
                                     })}
                                 </ul>
@@ -64,7 +67,7 @@ const ShowProductSort = (props: Props) => {
                                 <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 lg:h-full">
                                     <div className="max-w-2xl mx-auto py-4 px-4 sm:py-4 sm:px-6 lg:max-w-7xl lg:px-8">
                                         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                                            {props.data && props.data.map((item, index) => {
+                                            {props && props.data.map((item, index) => {
                                                 return <div className="group relative" key={index}>
                                                     <div
                                                         className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
@@ -75,7 +78,7 @@ const ShowProductSort = (props: Props) => {
                                                     <div className="mt-4 flex justify-between">
                                                         <div>
                                                             <h3 className="text-sm text-gray-700">
-                                                                <Link to={`/products/${item.id}`}>
+                                                                <Link to={`/product/${item._id}`}>
                                                                     <span aria-hidden="true" className="absolute inset-0"></span>
                                                                     {item.name}
                                                                 </Link>

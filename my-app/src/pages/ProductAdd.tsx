@@ -41,7 +41,7 @@ const ProductAdd = (props: ProductAddProps) => {
         
         props.onAdd(data);
         navigate("/admin/product")
-        window.location.reload();
+        // window.location.reload();
     }
     const cate = props.data.category
     console.log(cate);
@@ -64,7 +64,7 @@ const ProductAdd = (props: ProductAddProps) => {
                                                     <label className="block text-sm font-medium text-gray-700">Danh mục</label>
                                                     <select {...register('category')} id="cate" className="cate mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                         <option selected>Chọn danh mục</option>
-                                                        {cate && cate.map((item) => {
+                                                        {cate && cate.map((item: any) => {
                                                             return <option value={item._id}>{item.name}</option>
                                                         })}
                                                     </select>
