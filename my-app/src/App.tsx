@@ -35,12 +35,10 @@ function App() {
     const getNewProducts = async () => {
       const { data } = await newList();
       setNewProduct(data);
-      console.log(data);
     }
     const getProducts = async () => {
       const { data } = await list();
       setProducts(data);
-      // console.log(data);
     }
     const getCates = async () => {
       const { data } = await listCate();
@@ -59,7 +57,7 @@ function App() {
     document.location.href = "/";
   }
   const onHandleAdd = async (product: ProductType) => {
-    await add(product);
+    const {data} = await add(product);
   }
   const onHandleAddCate = async (category: CategoryType) => {
     await addCate(category);

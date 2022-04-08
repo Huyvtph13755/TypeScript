@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 type Props = {}
 
 const HeaderWebsite = (props: Props) => {
   const a = JSON.parse(localStorage.getItem('user') as string);
+
   // console.log(a.user._id);
   const handleClick = (event: React.MouseEvent<HTMLElement>, text: string) => {
-    console.log(event.target.value);
     localStorage.removeItem('user');
     window.location.reload();
   };

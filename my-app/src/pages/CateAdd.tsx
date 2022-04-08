@@ -30,7 +30,8 @@ const CateAdd = (props: CateAddProps) => {
                                             <div className="grid grid-cols-6 gap-6">
                                                 <div className="col-span-6 sm:col-span-4">
                                                     <label className="block text-sm font-medium text-gray-700">Tên sản phẩm</label>
-                                                    <input type="text" {...register('name')} name="name" id="name" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                                    <input type="text" {...register('name', {required: true})} name="name" id="name" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                                    {errors.name && errors.name.type === "required" && <span className='text-rose-700 text-xs ml-2'>Bạn không được bỏ trống trường này</span>}
                                                 </div>
                                             </div>
                                         </div>

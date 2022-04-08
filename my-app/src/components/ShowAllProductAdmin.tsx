@@ -67,7 +67,7 @@ const ShowAllProductAdmin = (props: Props) => {
                                                 </tr>
                                             </thead>
                                             <tbody className="bg-white divide-y divide-gray-200">
-                                                {data && data.map((item, index) => {
+                                                {data && data.map((item:any, index:any) => {
                                                     const cate = props.data.category; 
                                                     let name; 
                                                     for (let i = 0; i < cate.length; i++) {

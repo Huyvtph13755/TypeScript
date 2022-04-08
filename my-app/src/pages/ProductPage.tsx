@@ -8,8 +8,6 @@ type Props = {
 }
 
 const ProductPage = (props: Props) => {
-  console.log(props.data);
-
   return (
     <div>
       <SubBanner />
